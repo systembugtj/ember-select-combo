@@ -1,0 +1,66 @@
+@charset "UTF-8";
+.select-combo {
+  font-weight: normal;
+  text-transform: none;
+  color: #000000;
+  position: relative;
+  display: inline-block;
+  min-width: 200px;
+  background-color: #ffffff;
+  border: 1px solid #e2dcdc;
+}
+.select-combo .select-combo-dropdown {
+  position: absolute;
+  top: 100%;
+  left: -1px;
+  right: -1px;
+  background: #ffffff;
+  border: 1px solid #e2dcdc;
+  border-top: 0;
+}
+.select-combo .select-combo-active-item {
+  padding: 0 15px;
+  line-height: 40px;
+  cursor: pointer;
+}
+.select-combo .select-combo-active-item::after {
+  content: '▼';
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-bottom: 0;
+  width: 30px;
+  font-size: .8em;
+  text-align: center;
+}
+.select-combo .select-combo-field {
+  font-family: arial, sans-serif;
+  font-size: 14px;
+  width: 100%;
+  padding: 0 15px;
+  height: 35px;
+  background-color: #ffffff;
+  border: 0;
+  margin: 0;
+  border-bottom: 2px solid #06d0ee;
+  outline: 0;
+  box-sizing: border-box;
+}
+.select-combo .select-combo-list {
+  overflow-y: auto;
+  max-height: 200px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.select-combo .select-combo-list-item {
+  padding: 5px 15px;
+  cursor: pointer;
+}
+.select-combo .select-combo-list-item:hover, .select-combo .select-combo-list-item.selected {
+  background: #e2dcdc;
+}
+.select-combo .select-combo-list-item .highlight {
+  background: #06d0ee;
+  font-weight: bold;
+}

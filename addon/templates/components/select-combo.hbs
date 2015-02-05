@@ -1,0 +1,20 @@
+<div class="select-combo-active-item" {{action 'open'}}>
+  {{#if value}}
+    {{valueLabel}}
+  {{else}}
+    {{placeholder}}
+  {{/if}}
+</div>
+
+{{#if isOpen}}
+  <div class="select-combo-dropdown">
+    {{combo-search-field class="select-combo-field" focus-out='close'
+      value=filterText placeholder=inputPlaceholder}}
+
+    <ul class="select-combo-list">
+      {{#each filtered}}
+        {{combo-item content=this}}
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}
