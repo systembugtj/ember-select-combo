@@ -38,6 +38,10 @@ export default Ember.TextField.extend({
     var attribute = this.get('parentView.optionValuePath').replace(/^content\./, '');
     var value;
 
+    if (!itemToSelect) {
+      return false;
+    }
+
     if (attribute) {
       value = itemToSelect.get(attribute);
     } else {
