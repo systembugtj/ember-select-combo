@@ -8,6 +8,7 @@
   min-width: 200px;
   background-color: #ffffff;
   border: 1px solid #e2dcdc;
+  outline: 0;
 }
 .select-combo .select-combo-dropdown {
   position: absolute;

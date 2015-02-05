@@ -55,5 +55,6 @@ export default Ember.Component.extend({
   click: function() {
     var path = this.get('parentView.optionValuePath');
     this.set('parentView.value', this.get(path));
+    this.get('parentView').send('close');
   }
 });

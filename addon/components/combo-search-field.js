@@ -63,10 +63,12 @@ export default Ember.TextField.extend({
       case 13:
         e.preventDefault();
         this.set('parentView.value', this.get('parentView.selected'));
-        this.$().trigger('focusout');
+        this.get('parentView').send('close');
       break;
       case 27:
-        this.$().trigger('focusout');
+        e.preventDefault();
+        console.log('esc');
+        this.get('parentView').send('close');
       break;
     }
   },

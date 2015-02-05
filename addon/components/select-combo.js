@@ -46,11 +46,17 @@ export default Ember.Component.extend({
       this.set('isOpen', true);
     },
 
+    ensureClose: function() {
+      if (this.$().is(':hover')) {
+        return false;
+      } else {
+        this.send('close');
+      }
+    },
+
     close: function() {
-      window.setTimeout(function() {
-        this.set('isOpen', false);
-        this.set('filterText', '');
-      }.bind(this), 100);
+      this.set('isOpen', false);
+      this.set('filterText', '');
     }
   }
 });
