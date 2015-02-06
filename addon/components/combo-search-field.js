@@ -8,11 +8,18 @@ export default Ember.TextField.extend({
   setupKeyEvents: function() {
     var self = this;
 
-    var onHappend = function(e) {
+    var onKey = function(e) {
       return self.keyHandler(e);
     };
 
-    this.$().on('keydown', onHappend);
+    var onFocusout = function(e) {
+      return self.handleFocusout(e);
+    };
+
+    // event listeners
+    this.$().on('keydown', onKey);
+    this.$().focusout(onFocusout);
+
     this.pointerChanged();
   }.on('didInsertElement'),
 
@@ -21,7 +28,9 @@ export default Ember.TextField.extend({
   }.observes('parentView.filtered'),
 
   destroyKeyEvents: function() {
+    // destroy event listeners
     this.$().off('keydown', '**');
+    this.$().off('focusout', '**');
   }.on('willDestroyElement'),
 
   changePointer: function(delta) {
@@ -77,7 +86,9 @@ export default Ember.TextField.extend({
     }
   },
 
-  autoFocus: function() {
-    this.$().trigger('focus');
+  handleFocusout: function() {
+    if (this.$()) {
+      this.$().trigger('focus');
+    }
   }.on('didInsertElement')
 });
