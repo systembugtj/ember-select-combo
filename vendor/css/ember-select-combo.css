@@ -18,6 +18,7 @@
   background: #ffffff;
   border: 1px solid #e2dcdc;
   border-top: 0;
+  z-index: 99;
 }
 .select-combo .select-combo-active-item {
   padding: 0 15px;

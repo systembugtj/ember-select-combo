@@ -42,10 +42,10 @@ export default Ember.TextField.extend({
       return false;
     }
 
-    if (attribute) {
-      value = itemToSelect.get(attribute);
-    } else {
+    if (attribute === 'content') {
       value = itemToSelect;
+    } else {
+      value = itemToSelect.get(attribute);
     }
 
     this.set('parentView.selected', value);
