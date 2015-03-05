@@ -8,7 +8,7 @@ export default Ember.ArrayController.extend({
       if (!this.get('isOpen')) {
         this.set('isOpen', true);
       } else {
-        return this.set('isOpen', false)
+        return this.set('isOpen', false);
       }
 
       this.store.find('user').then(function(users) {
@@ -16,4 +16,4 @@ export default Ember.ArrayController.extend({
       }.bind(this));
     }
   }
-})
+});
