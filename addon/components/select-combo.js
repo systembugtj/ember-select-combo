@@ -13,20 +13,20 @@ export default Ember.Component.extend({
   selected: null,
   attributeBindings: ['tabindex'],
 
-  setupSelect: function() {
+  setupSelect: Ember.on('didInsertElement', function() {
     this.set('filterText', '');
     this.filtering();
 
     this.$().on('focus', function() {
       this.send('open');
     }.bind(this));
-  }.on('didInsertElement'),
+  }),
 
-  destroySelect: function() {
+  destroySelect: Ember.on('willDestroyElement', function() {
     this.$().off('focus', '**');
-  }.on('willDestroyElement'),
+  }),
 
-  filtering: function() {
+  filtering: Ember.observer('filtered', 'filterText', function() {
     var searchStr = escapeRegExp(this.get('filterText'));
 
     // filtering
@@ -39,7 +39,7 @@ export default Ember.Component.extend({
     } else {
       this.set('filtered', this.get('content'));
     }
-  }.observes('content', 'filterText'),
+  }),
 
   actions: {
     open: function() {

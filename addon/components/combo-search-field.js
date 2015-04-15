@@ -5,7 +5,7 @@ export default Ember.TextField.extend({
   pointer: 0,
   valueLabel: '',
 
-  setupKeyEvents: function() {
+  setupKeyEvents: Ember.on('didInsertElement', function() {
     var self = this;
 
     var onKey = function(e) {
@@ -21,17 +21,23 @@ export default Ember.TextField.extend({
     this.$().focusout(onFocusout);
 
     this.pointerChanged();
-  }.on('didInsertElement'),
+  }),
 
-  resetPointer: function() {
-    this.set('pointer', 0);
-  }.observes('parentView.filtered'),
+  handleFocusout: Ember.on('didInsertElement', function() {
+    if (this.$()) {
+      this.$().trigger('focus');
+    }
+  }),
 
-  destroyKeyEvents: function() {
+  destroyKeyEvents: Ember.on('willDestroyElement', function() {
     // destroy event listeners
     this.$().off('keydown', '**');
     this.$().off('focusout', '**');
-  }.on('willDestroyElement'),
+  }),
+
+  resetPointer: Ember.on('parentView.filtered', function() {
+    this.set('pointer', 0);
+  }),
 
   changePointer: function(delta) {
     var current = this.get('pointer');
@@ -42,7 +48,7 @@ export default Ember.TextField.extend({
     }
   },
 
-  pointerChanged: function() {
+  pointerChanged: Ember.observer('pointer', 'parentView.filtered', function() {
     var itemToSelect = this.get('parentView.filtered').objectAt(this.get('pointer'));
     var attribute = this.get('parentView.optionValuePath').replace(/^content\./, '');
     var value;
@@ -58,7 +64,7 @@ export default Ember.TextField.extend({
     }
 
     this.set('parentView.selected', value);
-  }.observes('pointer', 'parentView.filtered'),
+  }),
 
   keyHandler: function(e) {
     switch(e.which) {
@@ -84,11 +90,5 @@ export default Ember.TextField.extend({
         this.get('parentView').send('close');
       break;
     }
-  },
-
-  handleFocusout: function() {
-    if (this.$()) {
-      this.$().trigger('focus');
-    }
-  }.on('didInsertElement')
+  }
 });

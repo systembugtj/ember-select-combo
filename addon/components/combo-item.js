@@ -7,12 +7,12 @@ export default Ember.Component.extend({
   classNames: ['select-combo-list-item'],
   classNameBindings: ['isSelected:selected'],
 
-  setupItem: function() {
+  setupItem: Ember.on('didInsertElement', function() {
     this.filterChanged();
     this.selectedChanged();
-  }.on('didInsertElement'),
+  }),
 
-  selectedChanged: function() {
+  selectedChanged: Ember.observer('parentView.filterText', 'content', 'parentView.optionLabelPath', function() {
     var path = this.get('parentView.optionValuePath');
     // set class
     if (this.get(path) === this.get('parentView.selected')) {
@@ -20,9 +20,9 @@ export default Ember.Component.extend({
     } else {
       this.set('isSelected', false);
     }
-  }.observes('parentView.selected', 'content', 'parentView.optionValuePath'),
+  }),
 
-  filterChanged: function() {
+  filterChanged: Ember.observer('parentView.filterText', 'content', 'parentView.optionLabelPath', function() {
     var path = this.get('parentView.optionLabelPath');
     var content = this.get(path);
     var querystr = escapeRegExp(this.get('parentView.filterText'));
@@ -36,13 +36,13 @@ export default Ember.Component.extend({
     }
 
     this.$().html(content);
-  }.observes('parentView.filterText', 'content', 'parentView.optionLabelPath'),
+  }),
 
-  contentChange: function() {
+  contentChange: Ember.observer('content', function() {
     this.$().text(this.get('content.name'));
-  }.observes('content'),
+  }),
 
-  setValueLabel: function() {
+  setValueLabel: Ember.observer('parentView.valueLabel', 'parentView.value', function() {
     var valuePath = this.get('parentView.optionValuePath');
     if (this.get(valuePath) !== this.get('parentView.value')) {
       return false;
@@ -50,7 +50,7 @@ export default Ember.Component.extend({
 
     var labelPath = this.get('parentView.optionLabelPath');
     this.set('parentView.valueLabel', this.get(labelPath));
-  }.observes('parentView.optionLabelPath', 'parentView.value'),
+  }),
 
   click: function() {
     var path = this.get('parentView.optionValuePath');
