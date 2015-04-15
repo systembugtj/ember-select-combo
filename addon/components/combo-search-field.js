@@ -3,7 +3,6 @@ import Ember from 'ember';
 export default Ember.TextField.extend({
   type: 'text',
   pointer: 0,
-  valueLabel: '',
 
   setupKeyEvents: Ember.on('didInsertElement', function() {
     var self = this;
@@ -48,7 +47,7 @@ export default Ember.TextField.extend({
     }
   },
 
-  pointerChanged: Ember.observer('parentView.filtered', 'parentView.optionValuePath', 'parentView.filtered', function() {
+  pointerChanged: Ember.observer('pointer', 'parentView.filtered', function() {
     var filtered = this.get('parentView.filtered');
     if (!filtered || filtered.length < 1) {
       return false;

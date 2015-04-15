@@ -28,6 +28,7 @@
 
 <h2>Async data load</h2>
 <button {{action 'openToggle'}}>Toggle select and data</button>
+
 {{#if isOpen}}
   {{select-combo value=selected content=users2 tabindex='1'
    optionLabelPath='content.name' optionValuePath='content'}}

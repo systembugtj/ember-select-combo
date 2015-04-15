@@ -12,7 +12,7 @@ export default Ember.Component.extend({
     this.selectedChanged();
   }),
 
-  selectedChanged: Ember.observer('parentView.filterText', 'content', 'parentView.optionLabelPath', function() {
+  selectedChanged: Ember.observer('parentView.selected', 'content', 'parentView.optionLabelPath', function() {
     var path = this.get('parentView.optionValuePath');
     // set class
     if (this.get(path) === this.get('parentView.selected')) {
@@ -40,16 +40,6 @@ export default Ember.Component.extend({
 
   contentChange: Ember.observer('content', function() {
     this.$().text(this.get('content.name'));
-  }),
-
-  setValueLabel: Ember.observer('parentView.valueLabel', 'parentView.value', function() {
-    var valuePath = this.get('parentView.optionValuePath');
-    if (this.get(valuePath) !== this.get('parentView.value')) {
-      return false;
-    }
-
-    var labelPath = this.get('parentView.optionLabelPath');
-    this.set('parentView.valueLabel', this.get(labelPath));
   }),
 
   click: function() {

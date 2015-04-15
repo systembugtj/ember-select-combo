@@ -17,20 +17,37 @@ export default Ember.Component.extend({
   classNameBindings: ['isOpen:open'],
   attributeBindings: ['tabindex'],
 
+  getValueLabel: function() {
+    var attribute = this.get('optionValuePath').replace(/^content\./, '');
+
+    if (attribute === 'content') {
+      attribute = '';
+    }
+    return attribute;
+  },
+
   setupSelect: Ember.on('didInsertElement', function() {
-    this.set('filterText', '');
+    this.set('filterText', this.getValueLabel());
     this.filtering();
 
-    this.$().on('focus', function() {
+    this.valueChanged();
+
+    this.focusHandler = this.$().on('focus', function() {
       this.send('open');
     }.bind(this));
   }),
 
   destroySelect: Ember.on('willDestroyElement', function() {
-    this.$().off('focus', '**');
+    this.$().off('focus', this.focusHandler);
   }),
 
-  filtering: Ember.observer('filtered', 'filterText', function() {
+  valueChanged: Ember.observer('value', function() {
+    if (this.get('value')) {
+      this.set('valueLabel', this.get('value.name'));
+    }
+  }),
+
+  filtering: Ember.observer('filterText', 'content', function() {
     var searchStr = escapeRegExp(this.get('filterText'));
 
     // filtering
