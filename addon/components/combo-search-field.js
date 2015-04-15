@@ -48,7 +48,12 @@ export default Ember.TextField.extend({
     }
   },
 
-  pointerChanged: Ember.observer('pointer', 'parentView.filtered', function() {
+  pointerChanged: Ember.observer('parentView.filtered', 'parentView.optionValuePath', 'parentView.filtered', function() {
+    var filtered = this.get('parentView.filtered');
+    if (!filtered || filtered.length < 1) {
+      return false;
+    }
+
     var itemToSelect = this.get('parentView.filtered').objectAt(this.get('pointer'));
     var attribute = this.get('parentView.optionValuePath').replace(/^content\./, '');
     var value;

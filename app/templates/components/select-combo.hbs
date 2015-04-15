@@ -1,4 +1,4 @@
-<div class="select-combo-active-item" {{action 'openToggle'}}>
+<div class="select-combo-active-item" {{action 'open'}}>
   {{#if value}}
     {{valueLabel}}
   {{else}}
@@ -12,8 +12,8 @@
       value=filterText placeholder=inputPlaceholder}}
 
     <ul class="select-combo-list">
-      {{#each filtered}}
-        {{combo-item content=this}}
+      {{#each item in filtered}}
+        {{combo-item content=item}}
       {{/each}}
     </ul>
   </div>

@@ -2,15 +2,19 @@ import Ember from 'ember';
 import escapeRegExp from '../utils/escapeRegExp';
 
 export default Ember.Component.extend({
+  value: '',
+  valueLabel: '',
+  placeholder: 'Select',
+  inputPlaceholder: 'filter...',
+  optionValuePath: 'content',
+  optionLabelPath: 'content',
+
+  isOpen: false,
+  selected: null,
   filtered: [],
   filterText: '',
   classNames: ['select-combo'],
-  value: null,
-  placeholder: 'Select',
-  inputPlaceholder: 'filter...',
   classNameBindings: ['isOpen:open'],
-  isOpen: false,
-  selected: null,
   attributeBindings: ['tabindex'],
 
   setupSelect: Ember.on('didInsertElement', function() {
