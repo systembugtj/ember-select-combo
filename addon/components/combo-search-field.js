@@ -54,20 +54,13 @@ export default Ember.TextField.extend({
     }
 
     var itemToSelect = this.get('parentView.filtered').objectAt(this.get('pointer'));
-    var attribute = this.get('parentView.optionValuePath').replace(/^content\./, '');
+    var getAttributeFromItem = this.get('parentView.getAttributeFromItem');
     var value;
 
     if (!itemToSelect) {
       return false;
     }
-
-    if (attribute === 'content') {
-      value = itemToSelect;
-    } else {
-      value = itemToSelect.get(attribute);
-    }
-
-    this.set('parentView.selected', value);
+    this.set('parentView.selected', getAttributeFromItem.call(this.get('parentView'), itemToSelect, 'optionValuePath'));
   }),
 
   keyHandler: function(e) {

@@ -7,6 +7,8 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(controller, model);
 
-    controller.set('users', this.store.find('user'));
+    window.setTimeout(function() {
+      controller.set('users', this.store.find('user'));
+    }.bind(this), 100);
   }
 });

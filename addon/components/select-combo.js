@@ -27,7 +27,6 @@ export default Ember.Component.extend({
   },
 
   setupSelect: Ember.on('didInsertElement', function() {
-    this.set('filterText', this.getValueLabel());
     this.filtering();
 
     this.valueChanged();
@@ -41,24 +40,44 @@ export default Ember.Component.extend({
     this.$().off('focus', this.focusHandler);
   }),
 
-  valueChanged: Ember.observer('value', function() {
-    if (this.get('value')) {
-      this.set('valueLabel', this.get('value.name'));
+  getAttributeFromItem: function(item, property) {
+    if (!item) return false;
+    property = property || 'optionLabelPath'
+
+    var attribute = this.get(property).replace(/^content./, '');
+    if (attribute === 'content') {
+      return item;
+    } else {
+      return item.get(attribute);
     }
+  },
+
+  valueChanged: Ember.observer('value', 'optionValuePath', 'filtered', function() {
+    var value = this.get('value');
+    var filtered = this.get('filtered');
+
+    if (!value || !filtered) return false;
+
+    filtered.forEach(function(item) {
+      if (this.getAttributeFromItem(item, 'optionValuePath') === value) {
+        return this.set('valueLabel',  this.getAttributeFromItem(item));
+      }
+    }.bind(this));
   }),
 
   filtering: Ember.observer('filterText', 'content', function() {
-    var searchStr = escapeRegExp(this.get('filterText'));
+    var searchStr = escapeRegExp(this.get('filterText').toLowerCase());
+    var content = this.get('content');
+
+    if (!content) { return Ember.A() }
 
     // filtering
     if (searchStr) {
-      this.set('filtered', this.get('content').filter(function(item) {
-        return item.get('name').toLowerCase().match(
-          searchStr.toLowerCase()
-        );
+      this.set('filtered', content.filter(function(item) {
+        return item.get('name').toLowerCase().match(searchStr);
       }));
     } else {
-      this.set('filtered', this.get('content'));
+      this.set('filtered', content);
     }
   }),
 
