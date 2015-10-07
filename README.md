@@ -1,4 +1,4 @@
-# Ember-select-combo
+# ember-select-combo
 
 Pure Ember replacement for chosen and select2. Multiple selection is not currently supported. This is an early prototype and it's not well tested yet. Pull request are welcome.
 
@@ -14,7 +14,9 @@ Pure Ember replacement for chosen and select2. Multiple selection is not current
 
 *example:
 
-    {{ember-select value=userId content=users optionValuePath='content.id' optionLabelPath='content.name'}}
+    {{select-combo value=userId content=users
+            optionValuePath='content.id' 
+            optionLabelPath='content.name'}}
 
 
 ## Installation
