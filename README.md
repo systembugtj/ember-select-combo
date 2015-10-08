@@ -1,10 +1,10 @@
-# ember-select-combo
+# ember-select-combo [![Build Status](https://travis-ci.org/systembugtj/ember-select-combo.svg)](https://travis-ci.org/systembugtj/ember-select-combo)
 
 Pure Ember replacement for chosen and select2. Multiple selection is not currently supported. This is an early prototype and it's not well tested yet. Pull request are welcome.
 
 ## Integration to your ember app
 
-* ember install ember-select-combo [![Build Status](https://travis-ci.org/systembugtj/ember-select-combo.svg)](https://travis-ci.org/systembugtj/ember-select-combo)
+* ember install ember-select-combo
 
 ## Usage
 
