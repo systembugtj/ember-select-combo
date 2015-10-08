@@ -4,7 +4,7 @@ Pure Ember replacement for chosen and select2. Multiple selection is not current
 
 ## Integration to your ember app
 
-* ember install:addon ember-select-combo
+* ember install ember-select-combo [![Build Status](https://travis-ci.org/systembugtj/ember-select-combo.svg)](https://travis-ci.org/systembugtj/ember-select-combo)
 
 ## Usage
 
@@ -15,7 +15,7 @@ Pure Ember replacement for chosen and select2. Multiple selection is not current
 *example:
 
     {{select-combo value=userId content=users
-            optionValuePath='content.id' 
+            optionValuePath='content.id'
             optionLabelPath='content.name'}}
 
 
